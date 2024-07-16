@@ -1,0 +1,31 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameter awal
+m = 1.0  # massa benda dalam kg
+c = 900  # kapasitas panas jenis dalam J/(kg°C)
+P = 100  # daya dalam Watt (Joule/detik)
+T0 = 25  # suhu awal dalam °C
+dt = 1  # selang waktu dalam detik
+t_max = 300  # waktu maksimum dalam detik
+
+# Inisialisasi
+t = np.arange(0, t_max, dt)
+T = np.zeros_like(t)
+T[0] = T0
+
+# Loop Euler Method
+for i in range(1, len(t)):
+    T[i] = T[i-1] + (P * dt) / (m * c)
+
+# Plot hasil
+plt.plot(t, T, label='Suhu (T)')
+plt.xlabel('Waktu (s)')
+plt.ylabel('Suhu (°C)')
+plt.title('Simulasi Pemanasan Benda')
+plt.legend()
+plt.show()
+
+# Suhu akhir setelah waktu maksimum
+final_temperature = T[-1]
+print(f"Suhu akhir setelah {t_max} detik: {final_temperature} °C")
